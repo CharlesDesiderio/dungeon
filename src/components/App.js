@@ -15,18 +15,33 @@ class App extends React.Component {
     componentDidMount() {
         document.addEventListener('keypress', this.checkMove);
         let currentX = 'row-' + this.state.playerX;
-        document.getElementById(currentX).children[this.state.playerY].innerHTML = 'HERO';
+        document.getElementById(currentX).children[this.state.playerY].style.backgroundColor = 'white';
+        document.getElementById(currentX).children[this.state.playerY].innerHTML = 'o';
     }
 
     checkMove = (event) => {
-        console.log(event.key);
-        if (event.key === 'w') {
-            console.log('pressed');
-            let newY = this.state.playerX - 1;
-            this.setState({playerY: newY})
-            console.log(this.state);
-            
+        let currentX = 'row-' + this.state.playerX;
+        let newX = this.state.playerX;
+        let newY = this.state.playerY;
+        if (event.key === 'a') {
+            document.getElementById(currentX).children[this.state.playerY].innerHTML = '';
+            if (this.state.playerY > 0) {newY = this.state.playerY - 1;}
         }
+        if (event.key === 'd') {
+            document.getElementById(currentX).children[this.state.playerY].innerHTML = '';
+            if (this.state.playerY < this.state.grid[0] - 1) {newY = this.state.playerY + 1;}
+        }
+        if (event.key === 'w') {
+            document.getElementById(currentX).children[this.state.playerY].innerHTML = '';
+            if (this.state.playerX > 0) {newX = this.state.playerX - 1;}
+        }
+        if (event.key === 's') {
+            document.getElementById(currentX).children[this.state.playerY].innerHTML = '';
+            if (this.state.playerX < this.state.grid[1] - 1) {newX = this.state.playerX + 1;}
+        }
+
+        this.setState({playerX: newX, playerY: newY})
+
     }
     
     render() {
@@ -42,7 +57,8 @@ class App extends React.Component {
 
     componentDidUpdate() {
         let currentX = 'row-' + this.state.playerX;
-        document.getElementById(currentX).children[this.state.playerY].innerHTML = 'HERO';
+        document.getElementById(currentX).children[this.state.playerY].style.backgroundColor = 'white';
+        document.getElementById(currentX).children[this.state.playerY].innerHTML = 'o';
     }
 }
 
